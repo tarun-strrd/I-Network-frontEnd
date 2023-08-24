@@ -9,10 +9,12 @@ import {
 import React, { useState } from "react";
 import { baseUrl } from "../config";
 import InputMultiline from "./partials/StyledTextArea";
+import { useTweetContext } from "./screens/Home";
 
 const Tweet = () => {
   const [tweet, setTweet] = useState<string>("");
   const [open, setOpen] = useState(false);
+  const { tweets_state, tweets_dispatch } = useTweetContext();
 
   const onValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTweet(e.target.value);
@@ -38,6 +40,7 @@ const Tweet = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        tweets_dispatch({ type: "ADD_TWEET", payload: data.tweet });
         handleClose();
       })
       .catch((err) => {
