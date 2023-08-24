@@ -40,7 +40,7 @@ const Tweet = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        tweets_dispatch({ type: "ADD_TWEET", payload: data.tweet });
+        //tweets_dispatch({ type: "ADD_TWEET", payload: data.tweet });
         handleClose();
       })
       .catch((err) => {
