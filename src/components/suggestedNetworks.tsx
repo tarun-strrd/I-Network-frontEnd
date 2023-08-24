@@ -15,6 +15,7 @@ interface User {
 const SuggestedNetworks = () => {
   const [users, setUsers] = useState<[User] | []>([]);
   const { state, dispatch } = useContext(UserContext)!;
+
   useEffect(() => {
     fetch(`${baseUrl}/user/suggestedNetworks`, {
       method: "get",
@@ -25,14 +26,14 @@ const SuggestedNetworks = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        //console.log("data", data.users);
+        // console.log("data", data.users);
+        // console.log("state", state);
         setUsers(data.users);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
-
   return (
     <div
       style={{
@@ -46,10 +47,14 @@ const SuggestedNetworks = () => {
       <h3 style={{ fontWeight: "bold", textAlign: "left" }}>
         Suggested Networks
       </h3>
-      {users.map((user, index) => {
-        if (state._id === user._id) return null;
+      {users?.map((user, index) => {
+        if (state?._id === user?._id) return null;
         return (
-          <div className="icon-with-text" style={{ marginBottom: 30 }}>
+          <div
+            className="icon-with-text"
+            style={{ marginBottom: 30 }}
+            key={index}
+          >
             <img
               src={user?.profilePic}
               alt="profile pic"
