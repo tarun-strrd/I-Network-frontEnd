@@ -119,6 +119,12 @@ const CreateComment = ({ tweetReceived }: Props) => {
               placeholder="Reply..."
             />
             {/* <UnstyledSelectMultiple /> */}
+            <h5>Comments</h5>
+            <div>
+              {tweetReceived?.comments?.map((comment) => {
+                return <div>{comment}</div>;
+              })}
+            </div>
           </DialogContent>
           <DialogActions>
             <Button

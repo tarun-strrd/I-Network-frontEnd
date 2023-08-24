@@ -7,6 +7,7 @@ import { useTweetContext } from "./screens/Home";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CreateComment from "./createComment";
+import { Link } from "react-router-dom";
 
 interface Tweet {
   comments: string[];
@@ -31,7 +32,7 @@ const AllTweets = () => {
   const { tweets_state, tweets_dispatch } = useTweetContext();
   const [loading, setLoading] = useState(true);
   const { tweets } = tweets_state;
-  console.log(tweets);
+  // console.log(tweets);
 
   // const tweets = [
   //   {
@@ -549,6 +550,7 @@ const AllTweets = () => {
         console.log(err);
       });
   };
+
   useEffect(() => {
     fetch(`${baseUrl}/tweet/allTweets`, {
       method: "get",
@@ -569,7 +571,7 @@ const AllTweets = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Loading tweets...</div>;
   }
 
   return (
@@ -578,9 +580,9 @@ const AllTweets = () => {
         tweets.map((tweet, index) => {
           return (
             <div
-              key={index}
               className="default-card-styles"
               style={{ borderBottom: "1px solid #bdc4c9" }}
+              key={index}
             >
               <div
                 style={{
@@ -617,10 +619,13 @@ const AllTweets = () => {
                   </p>
                 </div>
               </div>
-
-              <div style={{ textAlign: "left" }}>{tweet?.tweet}</div>
-              <br />
-
+              <Link
+                to={`/tweet/${tweet._id}`}
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <div style={{ textAlign: "left" }}>{tweet?.tweet}</div>
+                <br />
+              </Link>
               <div className="icon-with-text" style={{ textAlign: "left" }}>
                 {tweet.likes.includes(state._id) ? (
                   <FavoriteIcon
@@ -647,7 +652,9 @@ const AllTweets = () => {
                     }}
                   />
                 )}
+
                 <div>{tweet?.likes?.length}</div>
+
                 <div>
                   <CreateComment tweetReceived={tweet} />
                 </div>

@@ -25,7 +25,7 @@ const SuggestedNetworks = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("data", data.users);
+        //console.log("data", data.users);
         setUsers(data.users);
       })
       .catch((err) => {

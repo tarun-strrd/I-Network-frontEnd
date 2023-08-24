@@ -145,7 +145,21 @@
   background-color: aliceblue;
   padding: 20px;
 }
-
+.active-tab {
+  color: var(--main-color) !important;
+  border: 2px solid var(--main-color) !important;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f7f5f5;
+  cursor: pointer;
+  font-weight: bold;
+}
+.inactive-tab {
+  color: #657786 !important;
+  border: 1px solid #e6ecf0 !important;
+  background-color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+}
 .profile-pic {
   width: 80px;
   border-radius: 200px;

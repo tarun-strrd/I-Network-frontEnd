@@ -68,7 +68,7 @@ const grey = {
 
 const StyledInputElement = styled("input")(
   ({ theme }) => `
-  width:320px;
+  width:80%;
   font-family: IBM Plex Sans, sans-serif;
   font-size: 0.875rem;
   font-weight: 400;
@@ -105,7 +105,7 @@ const StyledTextareaElement = styled("textarea", {
     !["ownerState", "minRows", "maxRows"].includes(prop.toString()),
 })(
   ({ theme }) => `
-  width: 320px;
+  width: 80%;
   font-family: IBM Plex Sans, sans-serif;
   font-size: 0.875rem;
   font-weight: 400;

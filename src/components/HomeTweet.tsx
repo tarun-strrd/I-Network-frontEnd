@@ -34,12 +34,20 @@ const HomeTweet = () => {
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <InputMultiline
-        Value={tweet}
-        changeValue={(e) => onValueChange(e)}
-        placeholder="What's happening..."
-      />
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        borderBottom: "1px solid #E0E3E7",
+      }}
+    >
+      <div style={{ width: "70%" }}>
+        <InputMultiline
+          Value={tweet}
+          changeValue={(e) => onValueChange(e)}
+          placeholder="What's happening..."
+        />
+      </div>
       <div style={{ textAlign: "right" }}>
         <Button
           className="default-button-style hover-white default-twitter-text"

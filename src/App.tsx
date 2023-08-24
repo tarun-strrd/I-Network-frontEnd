@@ -41,6 +41,7 @@ const Routing = () => {
       <Route path="/signup" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/tweet/:id" element={<Profile />} />
     </Routes>
   );
 };
