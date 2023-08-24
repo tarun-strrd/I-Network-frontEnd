@@ -6,6 +6,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { UserContext } from "../App";
 import { baseUrl } from "../config";
+import NothingToShow from "./nothingToShow";
 
 interface Tweet {
   comments: string[];
@@ -83,7 +84,7 @@ const LikedTweets = () => {
 
   return (
     <div>
-      {tweets ? (
+      {tweets.length !== 0 ? (
         tweets.map((tweet, index) => {
           return (
             <div
@@ -170,7 +171,11 @@ const LikedTweets = () => {
           );
         })
       ) : (
-        <div>No tweets to display.</div>
+        <div>
+          <div>
+            <NothingToShow />
+          </div>
+        </div>
       )}
     </div>
   );

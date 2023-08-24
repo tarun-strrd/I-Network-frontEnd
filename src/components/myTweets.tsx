@@ -6,6 +6,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { UserContext } from "../App";
 import { baseUrl } from "../config";
+import NothingToShow from "./nothingToShow";
 
 interface Tweet {
   comments: string[];
@@ -79,11 +80,11 @@ const MyTweets = () => {
       });
   }, []);
 
-  if (loading) return <div>Loading your favourites...</div>;
+  if (loading) return <div>Loading your Tweets...</div>;
 
   return (
     <div>
-      {tweets ? (
+      {tweets.length !== 0 ? (
         tweets.map((tweet, index) => {
           return (
             <div
@@ -170,7 +171,9 @@ const MyTweets = () => {
           );
         })
       ) : (
-        <div>No tweets to display.</div>
+        <div>
+          <NothingToShow />
+        </div>
       )}
     </div>
   );

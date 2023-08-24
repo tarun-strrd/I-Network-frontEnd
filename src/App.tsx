@@ -13,6 +13,7 @@ import Register from "./components/screens/register";
 import Profile from "./components/screens/Profile";
 import { reducer as user_reducer } from "./reducers/userReducer";
 import { reducer as tweet_reducer } from "./reducers/tweetReducer";
+import UserProfile from "./components/screens/userProfile";
 
 type stringOrNull = string | null;
 
@@ -41,7 +42,8 @@ const Routing = () => {
       <Route path="/signup" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="/profile" element={<Profile />} />
-      <Route path="/tweet/:id" element={<Profile />} />
+      <Route path="/user/:userId" element={<UserProfile />} />
+      <Route path="/tweet/:tweetId" element={<Profile />} />
     </Routes>
   );
 };

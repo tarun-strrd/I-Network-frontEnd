@@ -14,6 +14,7 @@ const HomeTweet = () => {
   };
 
   const tweetHandler = () => {
+    if (tweet.length === 0) return;
     fetch(`${baseUrl}/tweet/createTweet`, {
       method: "post",
       headers: {
