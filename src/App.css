@@ -127,13 +127,13 @@
   }
 }
 
-.home {
+/* .home {
   border-left: 1px solid #e6ecf0;
   border-right: 1px solid #e6ecf0;
   @media screen and (max-width: 768px) {
     width: 100%;
   }
-}
+} */
 .right {
   @media screen and (max-width: 768px) {
     display: none;

@@ -5,6 +5,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Navbar";
 import { Button } from "@mui/material";
+import AllTweets from "../allTweets";
 
 const Profile = () => {
   const { state, dispatch } = useContext(UserContext)!;
@@ -71,7 +72,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      <div className="right-profile">right side</div>
+      <div className="right">right side</div>
     </div>
   );
 };

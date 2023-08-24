@@ -1,10 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { baseUrl } from "../config";
+import { UserContext } from "../App";
+
 const defaultProfilePic =
   "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png";
+
+interface User {
+  name: string;
+  profilePic: string;
+  _id: string;
+}
+
 const SuggestedNetworks = () => {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<[User] | []>([]);
+  const { state, dispatch } = useContext(UserContext)!;
   useEffect(() => {
     fetch(`${baseUrl}/user/suggestedNetworks`, {
       method: "get",
@@ -37,17 +47,18 @@ const SuggestedNetworks = () => {
         Suggested Networks
       </h3>
       {users.map((user, index) => {
+        if (state._id === user._id) return null;
         return (
           <div className="icon-with-text" style={{ marginBottom: 30 }}>
             <img
-              src={defaultProfilePic}
+              src={user?.profilePic}
               alt="profile pic"
               width={30}
               height={30}
               style={{ borderRadius: "50%", marginRight: 10 }}
             />
             <p style={{ fontSize: 6, fontWeight: "bold", marginRight: 9 }}>
-              Tarun Sayyapureddi
+              {user?.name}
             </p>
             <Link
               to="/profile"

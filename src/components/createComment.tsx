@@ -6,8 +6,8 @@ import getTimeAgo from "./utils/days_ago";
 import { baseUrl } from "../config";
 
 interface Tweet {
-  comments: [string];
-  likes: [string];
+  comments: string[];
+  likes: string[];
   createdAt: string;
   postedBy: {
     name: string;
@@ -60,7 +60,7 @@ const CreateComment = ({ tweetReceived }: Props) => {
   };
 
   return (
-    <div style={{ width: 600 }}>
+    <div>
       <Button>
         <QuestionAnswerOutlinedIcon
           style={{ color: "black" }}
