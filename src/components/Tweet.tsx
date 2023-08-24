@@ -14,7 +14,7 @@ import { useTweetContext } from "./screens/Home";
 const Tweet = () => {
   const [tweet, setTweet] = useState<string>("");
   const [open, setOpen] = useState(false);
-  const { tweets_state, tweets_dispatch } = useTweetContext();
+  //const { tweets_state, tweets_dispatch } = useTweetContext();
 
   const onValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTweet(e.target.value);
