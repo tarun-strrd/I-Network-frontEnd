@@ -6,14 +6,16 @@ import {
   TextField,
   DialogActions,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { baseUrl } from "../config";
 import InputMultiline from "./partials/StyledTextArea";
 import { useTweetContext } from "./screens/Home";
+import { snackBarContext } from "../App";
 
 const Tweet = () => {
   const [tweet, setTweet] = useState<string>("");
   const [open, setOpen] = useState(false);
+  const { snackBarDispatch } = useContext(snackBarContext)!;
   //const { tweets_state, tweets_dispatch } = useTweetContext();
 
   const onValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,6 +31,7 @@ const Tweet = () => {
   };
 
   const tweetHandler = () => {
+    if (tweet.length === 0) return;
     fetch(`${baseUrl}/tweet/createTweet`, {
       method: "post",
       headers: {
@@ -40,6 +43,13 @@ const Tweet = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        snackBarDispatch({
+          type: "SET_SNACKBAR",
+          payload: {
+            message: "Tweeted!",
+            severity: "success",
+          },
+        });
         //tweets_dispatch({ type: "ADD_TWEET", payload: data.tweet });
         handleClose();
       })

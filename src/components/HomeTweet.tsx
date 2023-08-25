@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import InputMultiline from "./partials/StyledTextArea";
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import { baseUrl } from "../config";
 import { useTweetContext } from "./screens/Home";
+import { snackBarContext } from "../App";
 
 const HomeTweet = () => {
   console.log("HomeTweet");
   const [tweet, setTweet] = useState<string>("");
-  const { tweets_state, tweets_dispatch } = useTweetContext();
+  const { tweets_dispatch } = useTweetContext();
+  const { snackBarDispatch } = useContext(snackBarContext)!;
 
   const onValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTweet(e.target.value);
@@ -27,6 +29,10 @@ const HomeTweet = () => {
       .then((data) => {
         //console.log(data.tweet);
         tweets_dispatch({ type: "ADD_TWEET", payload: data.tweet });
+        snackBarDispatch({
+          type: "SET_SNACKBAR",
+          payload: { message: "Tweeted!", severity: "success" },
+        });
         setTweet("");
       })
       .catch((err) => {

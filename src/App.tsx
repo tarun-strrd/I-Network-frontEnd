@@ -14,12 +14,23 @@ import Profile from "./components/screens/Profile";
 import { reducer as user_reducer } from "./reducers/userReducer";
 import { reducer as tweet_reducer } from "./reducers/tweetReducer";
 import UserProfile from "./components/screens/userProfile";
+import snackBarReducer from "./reducers/SnackBarReducer";
+import SnackBar from "./components/partials/Snackbar";
+import Snackbar from "./components/partials/Snackbar";
 
 type stringOrNull = string | null;
+interface ISnackBarState {
+  message: string;
+  severity: string;
+}
 
+interface SnackbarContextType {
+  snackBarState: ISnackBarState | null;
+  snackBarDispatch: React.Dispatch<any>;
+}
 interface UserContextType {
   state: any;
-  dispatch: (action: any) => void;
+  dispatch: React.Dispatch<any>;
 }
 
 const Routing = () => {
@@ -49,9 +60,11 @@ const Routing = () => {
 };
 
 export const UserContext = createContext<UserContextType | null>(null);
+export const snackBarContext = createContext<SnackbarContextType | null>(null);
 
 function App() {
   const [state, dispatch] = useReducer(user_reducer, null);
+  const [snackBarState, snackBarDispatch] = useReducer(snackBarReducer, null);
 
   useEffect(() => {
     console.log("rerender due to user_state change");
@@ -61,11 +74,14 @@ function App() {
   console.log("app");
   return (
     <UserContext.Provider value={{ state, dispatch }}>
-      <div className="App">
-        <Router>
-          <Routing />
-        </Router>
-      </div>
+      <snackBarContext.Provider value={{ snackBarState, snackBarDispatch }}>
+        <div className="App">
+          {snackBarState !== null && <Snackbar />}
+          <Router>
+            <Routing />
+          </Router>
+        </div>
+      </snackBarContext.Provider>
     </UserContext.Provider>
   );
 }

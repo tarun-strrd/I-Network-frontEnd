@@ -8,7 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import InputMultiline from "./partials/StyledTextArea";
 import UnstyledSelectMultiple from "./partials/MultiSelect";
 import { useContext, useEffect, useRef, useState } from "react";
-import { UserContext } from "../App";
+import { UserContext, snackBarContext } from "../App";
 import { baseUrl, cloudinaryUrl } from "../config";
 import { upload } from "@testing-library/user-event/dist/upload";
 
@@ -24,6 +24,7 @@ function CreateProfile() {
   const [bio, setBio] = useState<string>(state ? state.bio : "");
   const [username, setUsername] = useState<string>(state ? state.name : "");
   const [location, setLocation] = useState<string>(state ? state.location : "");
+  const { snackBarState, snackBarDispatch } = useContext(snackBarContext)!;
 
   const onValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBio(e.target.value);
@@ -72,6 +73,13 @@ function CreateProfile() {
               location: data.updatedUser.location,
             },
           });
+          snackBarDispatch({
+            type: "SET_SNACKBAR",
+            payload: {
+              message: "Profile updated successfully",
+              severity: "success",
+            },
+          });
         }
       })
       .catch((err) => {
@@ -117,6 +125,13 @@ function CreateProfile() {
             type: "UPDATEPROFILE",
             payload: {
               profilePic: data.updatedUser.profilePic,
+            },
+          });
+          snackBarDispatch({
+            type: "SET_SNACKBAR",
+            payload: {
+              message: "Profile pic updated successfully",
+              severity: "success",
             },
           });
         }

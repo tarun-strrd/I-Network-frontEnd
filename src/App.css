@@ -70,7 +70,10 @@
 .logout-button-style:hover {
   background-color: rgb(255, 0, 0) !important;
 }
-
+.hover-white {
+  width: 100px !important;
+  color: white !important;
+}
 .hover-white:hover {
   background-color: white !important;
   color: var(--main-color) !important;

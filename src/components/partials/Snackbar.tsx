@@ -1,6 +1,7 @@
 import { Snackbar } from "@mui/material";
 import MuiAlert, { AlertColor, AlertProps } from "@mui/material/Alert";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { snackBarContext } from "../../App";
 
 interface SnackBarProps {
   errorMessage: string;
@@ -16,17 +17,27 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const SnackBar = ({ errorMessage, severity, onClose, open }: SnackBarProps) => {
+const SnackBar = () => {
+  const [open, setOpen] = useState(true);
+  const { snackBarState, snackBarDispatch } = useContext(snackBarContext)!;
+
+  const onClose = () => {
+    setOpen(false);
+  };
+  useEffect(() => {
+    setOpen(true);
+  }, [snackBarState]);
+
   return (
     <Snackbar open={open} autoHideDuration={6000} onClose={() => onClose()}>
       <Alert
         onClose={() => onClose()}
-        severity={severity}
+        severity={snackBarState?.severity as AlertColor}
         sx={{
           width: "100%",
         }}
       >
-        {errorMessage}
+        {snackBarState?.message}
       </Alert>
     </Snackbar>
   );

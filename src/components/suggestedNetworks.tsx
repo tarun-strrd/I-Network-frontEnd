@@ -66,7 +66,7 @@ const SuggestedNetworks = () => {
               {user?.name}
             </p>
             <Link
-              to={`user/${user?._id}`}
+              to={`/user/${user?._id}`}
               style={{
                 textDecoration: "none",
                 fontFamily: "roboto",

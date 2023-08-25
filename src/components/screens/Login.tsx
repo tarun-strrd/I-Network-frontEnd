@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -7,6 +7,7 @@ import { AlertColor } from "@mui/material";
 import validate from "../utils/validate";
 import { baseUrl } from "../../config";
 import TwitterLogo from "../../styles/assets/twitter-logo1.png";
+import { snackBarContext } from "../../App";
 
 type stringorNull = string | null;
 
@@ -17,11 +18,9 @@ const Login = () => {
   const [severity, setSeverity] = useState<AlertColor>("success");
   const [open, setOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const { snackBarDispatch } = useContext(snackBarContext)!;
   const navigate = useNavigate();
 
-  const handleClose = () => {
-    setOpen(false);
-  };
   const postDetails = (email: stringorNull, password: stringorNull) => {
     const error = validate(email, password, "", "", "login");
     if (error !== "No Error") {
@@ -47,16 +46,23 @@ const Login = () => {
           .then((data) => {
             console.log(data);
             if (data.error) {
-              setError(data.error);
-              setSeverity("error");
-              setOpen(true);
+              snackBarDispatch({
+                type: "SET_SNACKBAR",
+                payload: {
+                  message: data.error,
+                  severity: "error",
+                },
+              });
             } else {
               localStorage.setItem("token", data.token);
               localStorage.setItem("user", JSON.stringify(data.user));
-              setOpen(true);
-              setLoading(true);
-              setError("Successfully signed in");
-              setSeverity("success");
+              snackBarDispatch({
+                type: "SET_SNACKBAR",
+                payload: {
+                  message: "Logged In. See what's happening...",
+                  severity: "success",
+                },
+              });
               setTimeout(() => {
                 navigate("/");
               }, 2000);
@@ -116,16 +122,6 @@ const Login = () => {
               Don't have an account? <Link to="/signup">Register here</Link>
             </div>
           </div>
-        )}
-      </div>
-      <div>
-        {open && (
-          <SnackBar
-            errorMessage={error}
-            severity={severity}
-            onClose={() => handleClose()}
-            open={open}
-          />
         )}
       </div>
     </div>

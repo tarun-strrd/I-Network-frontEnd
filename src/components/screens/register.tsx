@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -7,6 +7,7 @@ import { AlertColor } from "@mui/material";
 import validate from "../utils/validate";
 import { baseUrl } from "../../config";
 import TwitterLogo from "../../styles/assets/twitter-logo1.png";
+import { snackBarContext } from "../../App";
 
 type stringorNull = string | null;
 
@@ -15,17 +16,10 @@ const Register = () => {
   const [email, setemail] = useState<stringorNull>("");
   const [password, setpassword] = useState<stringorNull>("");
   const [confirmpassword, setconfirmpassword] = useState<stringorNull>("");
-  const [error, setError] = useState<string>("No Error");
-  const [severity, setSeverity] = useState<AlertColor>("success");
-  const [open, setOpen] = useState<boolean>(false);
+  const { snackBarDispatch } = useContext(snackBarContext)!;
 
   const navigate = useNavigate();
 
-  const handleClose = () => {
-    setOpen(false);
-    setError("");
-    setSeverity("success");
-  };
   const postDetails = (
     email: stringorNull,
     password: stringorNull,
@@ -35,9 +29,10 @@ const Register = () => {
     const error = validate(email, password, confirmpassword, name, "signup");
     if (error !== "No Error") {
       //console.log(error);
-      setError(error);
-      setSeverity("error");
-      setOpen(true);
+      snackBarDispatch({
+        type: "SET_SNACKBAR",
+        payload: { message: error, severity: "error" },
+      });
       return;
     }
     fetch(`${baseUrl}/auth/signup`, {
@@ -54,11 +49,21 @@ const Register = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
-          setError(data.error);
-          setSeverity("error");
+          snackBarDispatch({
+            type: "SET_SNACKBAR",
+            payload: {
+              message: data.error,
+              severity: "success",
+            },
+          });
         } else {
-          setError("Successfully signed up");
-          setSeverity("success");
+          snackBarDispatch({
+            type: "SET_SNACKBAR",
+            payload: {
+              message: "Successfully registered.Happy Tweets......",
+              severity: "success",
+            },
+          });
           navigate("/login");
         }
       })
@@ -139,14 +144,6 @@ const Register = () => {
           </span>
         </h4>
       </div>
-      {open && (
-        <SnackBar
-          errorMessage={error}
-          severity={severity}
-          onClose={() => handleClose()}
-          open={open}
-        />
-      )}
     </div>
   );
 };
