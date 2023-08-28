@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CreateProfile from "../CreateProfile";
 import { UserContext } from "../../App";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -14,12 +14,13 @@ import MyTweets from "../myTweets";
 
 const Profile = () => {
   const { state, dispatch } = useContext(UserContext)!;
+  console.log(state);
   const [myPostsActive, setMyPostsActive] = useState(true);
   const navigate = useNavigate();
   const defaultProfilePic =
     "https://tse1.mm.bing.net/th?id=OIP.0g9t2RRpr0rhAKaJPbQriQHaHk&pid=Api&P=0&h=180";
 
-  return (
+  return state ? (
     <div className="primary">
       <div className="left-profile">
         <Navbar />
@@ -138,6 +139,8 @@ const Profile = () => {
         <SuggestedNetworks />
       </div>
     </div>
+  ) : (
+    <div>loading...</div>
   );
 };
 

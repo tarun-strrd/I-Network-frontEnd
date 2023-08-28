@@ -36,15 +36,19 @@ interface UserContextType {
 const Routing = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useContext(UserContext)!;
+  const [loading, setLoading] = React.useState<boolean>(true);
   useEffect(() => {
     const userJSON = localStorage.getItem("user");
     const user = userJSON ? JSON.parse(userJSON) : null;
     if (user) {
       dispatch({ type: "USER", payload: user });
+      setLoading(false);
     } else {
       navigate("/landing");
     }
   }, []);
+
+  if (loading) return <div>Loading...</div>;
 
   return (
     <Routes>

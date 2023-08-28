@@ -36,6 +36,7 @@ const UserProfile = () => {
   const { state, dispatch } = useContext(UserContext)!;
   const [userTweets, setUserTweets] = useState<Tweet[] | []>([]);
   const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   console.log(userId);
   const navigate = useNavigate();
 
@@ -156,8 +157,10 @@ const UserProfile = () => {
       .catch((err) => {
         console.log(err);
       });
+    setLoading(false);
   }, [userId]);
 
+  if (loading) return <div>loading...</div>;
   if (userId === state?._id) {
     return <Profile />;
   }

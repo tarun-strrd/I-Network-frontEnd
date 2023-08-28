@@ -28,10 +28,10 @@ const MyTweets = () => {
   const { state, dispatch } = useContext(UserContext)!;
 
   const callLikeOrUnlike = (tweet: Tweet) => {
-    if (tweet.likes.includes(state._id)) {
-      LikeOrUnlike(tweet._id, "unlike");
+    if (tweet.likes.includes(state?._id)) {
+      LikeOrUnlike(tweet?._id, "unlike");
     } else {
-      LikeOrUnlike(tweet._id, "like");
+      LikeOrUnlike(tweet?._id, "like");
     }
   };
 
@@ -128,17 +128,17 @@ const MyTweets = () => {
                 </div>
               </div>
               <Link
-                to={`/tweet/${tweet._id}`}
+                to={`/tweet/${tweet?._id}`}
                 style={{ textDecoration: "none", color: "black" }}
               >
                 <div style={{ textAlign: "left" }}>{tweet?.tweet}</div>
                 <br />
               </Link>
               <div className="icon-with-text" style={{ textAlign: "left" }}>
-                {tweet.likes.includes(state._id) ? (
+                {tweet.likes.includes(state?._id) ? (
                   <FavoriteIcon
                     className={
-                      tweet.likes.includes(state._id)
+                      tweet.likes.includes(state?._id)
                         ? "default-icon liked"
                         : "default-icon unliked"
                     }
@@ -150,7 +150,7 @@ const MyTweets = () => {
                 ) : (
                   <FavoriteBorderIcon
                     className={
-                      tweet.likes.includes(state._id)
+                      tweet.likes.includes(state?._id)
                         ? "default-icon liked"
                         : "default-icon unliked"
                     }

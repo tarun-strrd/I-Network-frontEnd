@@ -108,7 +108,7 @@ const AllTweets = () => {
                 }}
               >
                 <div style={{ textAlign: "left" }}>
-                  <Link to={`/user/${tweet?.postedBy}`}>
+                  <Link to={`/user/${tweet?.postedBy._id}`}>
                     <img
                       src={tweet?.postedBy?.profilePic}
                       alt="profile pic"
