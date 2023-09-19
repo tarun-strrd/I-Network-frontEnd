@@ -44,7 +44,9 @@ const Routing = () => {
       dispatch({ type: "USER", payload: user });
       setLoading(false);
     } else {
+      console.log("no user");
       navigate("/landing");
+      setLoading(false);
     }
   }, []);
 
@@ -70,10 +72,10 @@ function App() {
   const [state, dispatch] = useReducer(user_reducer, null);
   const [snackBarState, snackBarDispatch] = useReducer(snackBarReducer, null);
 
-  useEffect(() => {
-    console.log("rerender due to user_state change");
-    console.log(state);
-  }, [state]);
+  // useEffect(() => {
+  //   console.log("rerender due to user_state change");
+  //   console.log(state);
+  // }, [state]);
 
   console.log("app");
   return (
